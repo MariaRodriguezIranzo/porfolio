@@ -22,4 +22,5 @@ export default function HomeSection() {
       </Link>
     </section>
   );
+
 }
