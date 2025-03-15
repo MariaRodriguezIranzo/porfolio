@@ -15,32 +15,6 @@ export default function Footer() {
             <p className="text-gray-400 mt-2">© {currentYear} María. All Rights Reserved.</p>
           </div>
 
-          {/* Enlaces de navegación */}
-          <div className="text-center sm:text-center mb-6 sm:mb-0">
-            <ul className="mt-4 space-y-4 sm:space-y-2 flex flex-col sm:flex-row sm:space-x-6 sm:space-y-0 justify-center">
-              <li>
-                <a href="#home" className="text-gray-400 hover:text-teal-400 transition">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#about" className="text-gray-400 hover:text-teal-400 transition">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#projects" className="text-gray-400 hover:text-teal-400 transition">
-                  Projects
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="text-gray-400 hover:text-teal-400 transition">
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
-
           {/* Redes sociales */}
           <div className="text-center sm:text-center flex justify-center sm:justify-start space-x-6 mt-6 sm:mt-0">
             <a

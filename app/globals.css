@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* Definimos las variables para los colores de fondo y texto */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -12,13 +13,13 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Estilos para el tema oscuro */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
+/* Aplicamos los colores en el body para el modo claro y oscuro */
 body {
   background: var(--background);
   color: var(--foreground);
