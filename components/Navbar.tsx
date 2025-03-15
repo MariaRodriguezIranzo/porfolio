@@ -40,12 +40,6 @@ export default function Navbar() {
         Download CV 📄
         </a>
 
-        {/* Selector de idioma */}
-        <button className="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg text-sm">
-          ES
-        </button>
-          
-          
         {/* Botón de modo oscuro (se muestra solo si está montado) */}
         {mounted && (
           <button
@@ -65,16 +59,8 @@ export default function Navbar() {
           download
           className="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg text-sm flex items-center"
         >
-          📄
+          Download CV 📄
         </a>
-
-        {/* Selector de idioma */}
-        <button
-          
-          className="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg text-sm"
-        >
-          
-        </button>
 
         {/* Botón de modo oscuro (se muestra solo si está montado) */}
         {mounted && (
