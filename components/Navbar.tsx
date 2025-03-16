@@ -4,19 +4,17 @@ import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import Link from "next/link";
-
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const {setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Se ejecuta después del primer renderizado en el cliente
   useEffect(() => {
     setMounted(true);
   }, []);
 
- 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 flex justify-between items-center p-4 md:px-8 shadow-md bg-white dark:bg-gray-900 dark:text-white transition-all">
       {/* Logo */}
@@ -25,12 +23,20 @@ export default function Navbar() {
         <span className="text-gray-700 dark:text-gray-300 text-4xl">.</span>
       </div>
 
-      {/* Menú de escritorio */}
+      {/* Menú de escritorio con animación */}
       <div className="hidden md:flex flex-1 justify-center space-x-8 text-gray-800 dark:text-gray-300 font-medium">
-        <Link href="#home" className="hover:text-teal-600 transition">Home</Link>
-        <Link href="#about" className="hover:text-teal-600 transition">About</Link>
-        <Link href="#projects" className="hover:text-teal-600 transition">Projects</Link>
-        <Link href="#contact" className="hover:text-teal-600 transition">Contact</Link>
+        <motion.div whileTap={{ scale: 0.95 }} transition={{ duration: 0.2 }}>
+          <Link href="#home" className="hover:text-teal-600 transition">Home</Link>
+        </motion.div>
+        <motion.div whileTap={{ scale: 0.95 }} transition={{ duration: 0.2 }}>
+          <Link href="#about" className="hover:text-teal-600 transition">About</Link>
+        </motion.div>
+        <motion.div whileTap={{ scale: 0.95 }} transition={{ duration: 0.2 }}>
+          <Link href="#projects" className="hover:text-teal-600 transition">Projects</Link>
+        </motion.div>
+        <motion.div whileTap={{ scale: 0.95 }} transition={{ duration: 0.2 }}>
+          <Link href="#contact" className="hover:text-teal-600 transition">Contact</Link>
+        </motion.div>
       </div>
 
       {/* Botones en escritorio */}
@@ -78,17 +84,25 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Menú desplegable móvil */}
-      {isOpen && (
-        <div className="absolute top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-md md:hidden">
-          <div className="flex flex-col space-y-4 p-4 text-center text-gray-800 dark:text-gray-300 font-medium">
-          <Link href="#home" className="hover:text-teal-600">Home</Link>
-            <Link href="#about" className="hover:text-teal-600">About</Link>
-            <Link href="#projects" className="hover:text-teal-600">Projects</Link>
-            <Link href="#contact" className="hover:text-teal-600">Contact</Link>
-          </div>
-        </div>
-      )}
+      {/* Menú desplegable móvil con animación */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="absolute top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-md md:hidden"
+            initial={{ opacity: 0, y: -50 }}    // Animación inicial
+            animate={{ opacity: 1, y: 0 }}       // Animación de aparición
+            exit={{ opacity: 0, y: 50 }}         // Animación de salida
+            transition={{ duration: 0.3 }}       // Duración de la animación
+          >
+            <div className="flex flex-col space-y-4 p-4 text-center text-gray-800 dark:text-gray-300 font-medium">
+              <Link href="#home" className="hover:text-teal-600">Home</Link>
+              <Link href="#about" className="hover:text-teal-600">About</Link>
+              <Link href="#projects" className="hover:text-teal-600">Projects</Link>
+              <Link href="#contact" className="hover:text-teal-600">Contact</Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }
