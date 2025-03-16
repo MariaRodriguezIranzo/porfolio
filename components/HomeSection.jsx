@@ -70,7 +70,7 @@ export default function HomeSection() {
           {/* Botones de redes sociales */}
           <div className="flex gap-6 mt-6 justify-center md:justify-start">
             <a
-              href="https://github.com/tu-usuario"
+              href="https://github.com/MariaRodriguezIranzo"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 bg-gray-300 dark:bg-gray-700 btn-foreground rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition"
@@ -78,7 +78,7 @@ export default function HomeSection() {
               <Github size={24} />
             </a>
             <a
-              href="https://linkedin.com/in/tu-usuario"
+              href="https://www.linkedin.com/in/maríarodrígueziranzo"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 bg-gray-300 dark:bg-gray-700 btn-foreground rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition"

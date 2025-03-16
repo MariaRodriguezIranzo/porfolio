@@ -30,3 +30,31 @@ body {
 .btn-foreground {
   color: #ffffff !important; /* Siempre blanco */
 }
+
+/* Personalización del scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4fd1c5; /* Color teal (text-teal-600) */
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #2b6cb0; /* Un tono más oscuro para el hover */
+}
+
+::-webkit-scrollbar-button {
+  background-color: #f1f1f1;
+}
+
+/* Opcional: Personalizar la barra de scroll cuando se pasa por encima */
+::-webkit-scrollbar-thumb:active {
+  background-color: #2b6cb0;
+}

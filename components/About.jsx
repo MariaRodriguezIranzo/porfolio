@@ -2,83 +2,102 @@
 
 import { motion } from 'framer-motion';
 import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaBootstrap, FaAngular, FaNodeJs, FaPhp, FaPython, FaFigma } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
 
 export default function About() {
-  return (
-    <section id="about" className="">
-      {/* Header de la sección */}
-        <h2 className="text-3xl font-bold text-center md:bottom-12 mb-8">Sobre Mí</h2>
-    
+  const [inView, setInView] = useState(false);
 
-      {/* Contenedor con dos columnas */}
+  // Detecta cuando el contenido entra en la vista
+  const handleScroll = () => {
+    const section = document.getElementById("about");
+    const rect = section?.getBoundingClientRect();
+
+    if (rect && rect.top < window.innerHeight * 0.8) {
+      setInView(true);
+    } else {
+      setInView(false);
+    }
+  };
+
+  useEffect(() => {
+    // Añadir el listener al evento de scroll
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return (
+    <section id="about" className="py-20 px-6">
+      <h2 className="text-3xl font-bold text-center mb-8">About Me</h2>
+
       <div className="flex flex-col md:flex-row gap-8 items-start">
-        
-        {/* Columna Izquierda - About (Más pegado a la izquierda) */}
+        {/* Columna Izquierda */}
         <motion.div
           className="about-info w-full md:w-[56%] text-foreground dark:text-foreground text-left md:pl-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 50 }}
           transition={{ duration: 1.5, delay: 0.5 }}
         >
-          <h3 className="text-xl font-semibold text-foreground">Mi Introducción</h3>
-          <p className="mt-4 text-lg text-foreground dark:text-foreground">
-            Soy un desarrollador full-stack graduado recientemente, con experiencia en el desarrollo
-            tanto de back-end como de front-end. Me apasiona especialmente el diseño y el desarrollo
-            front-end, aunque tengo habilidades en ambas áreas. A lo largo de mis tres años de
-            formación, he adquirido experiencia autodidacta en diversas tecnologías.
-          </p>
+          <motion.h3
+            className="text-xl font-semibold text-teal-500"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: inView ? 1 : 0, x: inView ? 0 : -30 }}
+            transition={{ duration: 1.5, delay: 0.7 }}
+          >
+            My introduction
+          </motion.h3>
+          <motion.p
+            className="mt-4 text-lg text-foreground dark:text-foreground"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: inView ? 1 : 0, x: inView ? 0 : -30 }}
+            transition={{ duration: 1.5, delay: 1 }}
+          >
+            I'm a recently graduated full stack developer with experience in both back-end and front-end work. While I'm particularly passionate about design and front-end development, I'm proficient in both areas. Throughout my three years of training, I've gained self-taught experience in various technologies.
+          </motion.p>
         </motion.div>
 
         {/* Columna Derecha - Tecnologías */}
         <motion.div
           className="skills w-full md:w-1/2 bg-white dark:bg-gray-800 shadow-xl p-6 rounded-lg"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 50 }}
           transition={{ duration: 1.5, delay: 1 }}
         >
-          <h3 className="text-xl font-semibold text-teal-600 dark:text-teal-400 text-center mb-2">Tecnologías</h3>
-          
-          <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 mt-4 text-teal-600 dark:text-teal-400">
-            <div className="skills-box text-center">
-              <FaHtml5 className="text-4xl text-orange-500 mx-auto" />
-              <span className="block mt-2">HTML</span>
-            </div>
-            <div className="skills-box text-center">
-              <FaCss3Alt className="text-4xl text-blue-500 mx-auto" />
-              <span className="block mt-2">CSS</span>
-            </div>
-            <div className="skills-box text-center">
-              <FaJs className="text-4xl text-yellow-500 mx-auto" />
-              <span className="block mt-2">JavaScript</span>
-            </div>
-            <div className="skills-box text-center">
-              <FaReact className="text-4xl text-blue-400 mx-auto" />
-              <span className="block mt-2">React</span>
-            </div>
-            <div className="skills-box text-center">
-              <FaBootstrap className="text-4xl text-purple-600 mx-auto" />
-              <span className="block mt-2">Bootstrap</span>
-            </div>
-            <div className="skills-box text-center">
-              <FaAngular className="text-4xl text-red-600 mx-auto" />
-              <span className="block mt-2">Angular</span>
-            </div>
-            <div className="skills-box text-center">
-              <FaNodeJs className="text-4xl text-green-500 mx-auto" />
-              <span className="block mt-2">Node.js</span>
-            </div>
-            <div className="skills-box text-center">
-              <FaPhp className="text-4xl text-purple-600 mx-auto" />
-              <span className="block mt-2">PHP</span>
-            </div>
-            <div className="skills-box text-center">
-              <FaPython className="text-4xl text-yellow-400 mx-auto" />
-              <span className="block mt-2">Python</span>
-            </div>
-            <div className="skills-box text-center">
-              <FaFigma className="text-4xl text-blue-500 mx-auto" />
-              <span className="block mt-2">Figma</span>
-            </div>
+          <motion.h3
+            className="text-xl font-semibold text-teal-600 dark:text-teal-400 text-center mb-2"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: inView ? 1 : 0, x: inView ? 0 : 30 }}
+            transition={{ duration: 1.5, delay: 1.2 }}
+          >
+            SKILLS
+          </motion.h3>
+
+          <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 mt-4 text-white">
+            {[
+              { icon: <FaHtml5 className="text-4xl text-orange-500 mx-auto" />, name: 'HTML' },
+              { icon: <FaCss3Alt className="text-4xl text-blue-500 mx-auto" />, name: 'CSS' },
+              { icon: <FaJs className="text-4xl text-yellow-500 mx-auto" />, name: 'JavaScript' },
+              { icon: <FaReact className="text-4xl text-blue-400 mx-auto" />, name: 'React' },
+              { icon: <FaBootstrap className="text-4xl text-purple-600 mx-auto" />, name: 'Bootstrap' },
+              { icon: <FaAngular className="text-4xl text-red-600 mx-auto" />, name: 'Angular' },
+              { icon: <FaNodeJs className="text-4xl text-green-500 mx-auto" />, name: 'Node.js' },
+              { icon: <FaPhp className="text-4xl text-purple-600 mx-auto" />, name: 'PHP' },
+              { icon: <FaPython className="text-4xl text-yellow-400 mx-auto" />, name: 'Python' },
+              { icon: <FaFigma className="text-4xl text-blue-500 mx-auto" />, name: 'Figma' },
+            ].map((tech, index) => (
+              <motion.div
+                key={index}
+                className="skills-box text-center"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: inView ? 1 : 0, scale: inView ? 1 : 0.8 }}
+                transition={{ duration: 1.5, delay: 1.5 + index * 0.2 }}
+              >
+                {tech.icon}
+                <span className="block mt-2">{tech.name}</span>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>
