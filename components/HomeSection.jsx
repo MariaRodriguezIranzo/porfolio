@@ -3,6 +3,7 @@
 import { Link } from "react-scroll";
 import { TypeAnimation } from "react-type-animation";
 import { ArrowDownCircle, Github, Linkedin } from "lucide-react";
+import { motion } from "framer-motion";  // Importamos motion de framer-motion
 
 export default function HomeSection() {
   return (
@@ -11,7 +12,12 @@ export default function HomeSection() {
       className="flex flex-col-reverse md:flex-row items-center justify-center py-20 px-4 min-h-screen"
     >
       {/* Contenedor de texto */}
-      <div className="flex flex-col items-center md:items-start md:w-1/2 space-y-6">
+      <motion.div
+        className="flex flex-col items-center md:items-start md:w-1/2 space-y-6"
+        initial={{ opacity: 0, y: 30 }}  // Inicializa el componente con opacidad 0 y desplazado hacia abajo
+        animate={{ opacity: 1, y: 0 }}    // Al cargar, la opacidad es 1 y se mueve hacia la posición inicial
+        transition={{ duration: 1 }}       // La animación durará 1 segundo
+      >
         {/* Nombre en estilo de botón alineado a la izquierda */}
         <div className="featured-text-card mb-4 w-full">
           {/* Agregado margen superior en móvil para dar espacio */}
@@ -81,28 +87,38 @@ export default function HomeSection() {
             </a>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Imagen a la derecha (centrada arriba) */}
-      <div className="featured-image md:w-1/2 mt-3 md:mt-0 flex justify-center md:justify-end">
+      <motion.div
+        className="featured-image md:w-1/2 mt-3 md:mt-0 flex justify-center md:justify-end"
+        initial={{ opacity: 0, x: 30 }}  // Inicializa la imagen con opacidad 0 y desplazada
+        animate={{ opacity: 1, x: 0 }}    // La imagen aparece con opacidad 1 y se mueve a la posición inicial
+        transition={{ duration: 1, delay: 0.3 }} // Añadimos un pequeño retraso para que se anime después del texto
+      >
         <img
           src="/images/me.jpg"
           alt="Featured"
-          className="rounded-xl shadow-lg max-w-full h-auto object-contain w-3/4 md:w-1/2"
+          className="rounded-full shadow-lg max-w-full h-auto object-cover w-50 h-50"  // Cambiado para ser redonda
         />
-      </div>
+      </motion.div>
 
       {/* Scroll Down Button desplazado más hacia abajo en dispositivos móviles */}
-      <div className="absolute bottom-5 left-0 right-0 flex justify-center md:bottom-12 ">
+      <motion.div
+        className="absolute bottom-5 sm:bottom-20 md:bottom-12 left-0 right-0 flex justify-center"
+        initial={{ opacity: 0, y: 30 }}  // Inicializa con opacidad 0 y desplazado hacia abajo
+        animate={{ opacity: 1, y: 0 }}    // Al cargar, la opacidad es 1 y la posición vuelve a la normalidad
+        transition={{ duration: 1, delay: 0.6 }} // Añadimos un retraso para que la animación sea más suave
+      >
         <Link
           to="about"
           smooth={true}
-          offset={900}
+          offset={-100} // Cambiado a un valor más pequeño en dispositivos móviles
           className="px-8 py-3 flex items-center gap-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition cursor-pointer"
         >
           Scroll Down <ArrowDownCircle size={20} />
         </Link>
-      </div>
+      </motion.div>
     </section>
   );
 }
