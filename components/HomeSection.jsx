@@ -86,7 +86,7 @@ export default function HomeSection() {
       {/* Imagen a la derecha (centrada arriba) */}
       <div className="featured-image md:w-1/2 mt-3 md:mt-0 flex justify-center md:justify-end">
         <img
-          src="/images/proyecto2.png"
+          src="/images/me.jpg"
           alt="Featured"
           className="rounded-xl shadow-lg max-w-full h-auto object-contain w-3/4 md:w-1/2"
         />
