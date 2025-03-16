@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const {setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme(); // Solo dejamos 'resolvedTheme'
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export default function Navbar() {
       <div className="hidden md:flex space-x-4">
         {/* Botón de Descargar CV */}
         <a href="/cv.pdf" download className="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg text-sm flex items-center">
-        Download CV 📄
+          Download CV 📄
         </a>
 
         {/* Botón de modo oscuro (se muestra solo si está montado) */}
