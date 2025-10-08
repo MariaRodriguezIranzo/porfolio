@@ -58,3 +58,8 @@ body {
 ::-webkit-scrollbar-thumb:active {
   background-color: #2b6cb0;
 }
+
+
+.imgAboutMe{
+ border-radius: 40%;
+}

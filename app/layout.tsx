@@ -2,6 +2,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import { LanguageProvider } from "@/components/language-provider"; // 👈 Importa el provider
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -13,9 +14,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <main className="container mx-auto p-4">{children}</main>
-          <Footer />
+          {/* 👇 Todo envuelto con el provider de idioma */}
+          <LanguageProvider>
+            <Navbar />
+            <main className="container mx-auto p-4">{children}</main>
+            <Footer />
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>
