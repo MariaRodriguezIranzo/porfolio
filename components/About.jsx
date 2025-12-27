@@ -103,7 +103,7 @@ export default function About() {
             {t.skillsTitle}
           </motion.h3>
 
-          <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 mt-4 text-white">
+          <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 mt-4">
             {[
               { icon: <FaHtml5 className="text-4xl text-orange-500 mx-auto" />, name: "HTML" },
               { icon: <FaCss3Alt className="text-4xl text-blue-500 mx-auto" />, name: "CSS" },
@@ -124,10 +124,11 @@ export default function About() {
                 transition={{ duration: 1.5, delay: 1.5 + index * 0.2 }}
               >
                 {tech.icon}
-                <span className="block mt-2">{tech.name}</span>
+                <span className="block mt-2 text-gray-800 dark:text-white">{tech.name}</span>
               </motion.div>
             ))}
           </div>
+
         </motion.div>
       </div>
     </section>

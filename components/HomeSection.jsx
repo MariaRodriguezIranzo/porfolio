@@ -17,7 +17,7 @@ export default function HomeSection() {
       description:
         "Desarrolladora Full Stack apasionada por el front-end y el diseño, en búsqueda activa de nuevos proyectos y oportunidades para crecer como profesional.",
       hireMe: "Contrátame",
-      downloadCV: "Descargar CV 📄",
+      downloadCV: "Descargar CV",
       scrollDown: "Desplázate hacia abajo",
     },
     en: {
@@ -27,7 +27,7 @@ export default function HomeSection() {
       description:
         "Full Stack graduate passionate about front-end and design, actively seeking new projects and opportunities to grow as a developer.",
       hireMe: "Hire Me",
-      downloadCV: "Download CV 📄",
+      downloadCV: "Download CV",
       scrollDown: "Scroll Down",
     },
   };
@@ -47,7 +47,8 @@ export default function HomeSection() {
         transition={{ duration: 1 }}
       >
         <div className="featured-text-card mb-4 w-full">
-          <span className="text-sm font-semibold bg-blue-100 dark:bg-gray-700 px-4 py-2 rounded-md inline-block cursor-pointer hover:bg-blue-200 dark:hover:bg-gray-600 btn-foreground mt-6 sm:mt-0">
+
+          <span className="text-sm font-semibold bg-blue-100 dark:bg-gray-700 px-4 py-2 rounded-md inline-block cursor-pointer hover:bg-blue-200 dark:hover:bg-gray-600 text-gray-900 dark:text-white mt-6 sm:mt-0">
             {t.name}
           </span>
         </div>
@@ -72,7 +73,7 @@ export default function HomeSection() {
           </p>
 
           {/* Botones */}
-          <div className="flex flex-col md:flex-row gap-4 mt-6 space-x-0 md:space-x-4">
+          <div className="flex flex-col md:flex-row gap-4 mt-6 space-x-0 md:space-x-4 w-full">
             <div className="flex flex-row space-x-4 w-full sm:w-auto">
               <Link
                 to="contact"
@@ -85,20 +86,19 @@ export default function HomeSection() {
               <a
                 href="/cv.pdf"
                 download
-                className="px-6 py-3 bg-gray-300 dark:bg-gray-700 btn-foreground rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition text-center w-full sm:w-auto"
+                className="px-6 py-3 bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition text-center w-full sm:w-auto"
               >
                 {t.downloadCV}
               </a>
             </div>
           </div>
-
           {/* Redes sociales */}
           <div className="flex gap-6 mt-6 justify-center md:justify-start">
             <a
               href="https://github.com/MariaRodriguezIranzo"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-gray-300 dark:bg-gray-700 btn-foreground rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition"
+              className="p-3 bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition"
             >
               <Github size={24} />
             </a>
@@ -106,14 +106,13 @@ export default function HomeSection() {
               href="https://www.linkedin.com/in/mariarodrigueziranzo"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-gray-300 dark:bg-gray-700 btn-foreground rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition"
+              className="p-3 bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition"
             >
               <Linkedin size={24} />
             </a>
           </div>
         </div>
       </motion.div>
-
       {/* Imagen */}
       <motion.div
         className="featured-image md:w-1/2 mt-3 md:mt-0 flex justify-center md:justify-end"
@@ -128,9 +127,8 @@ export default function HomeSection() {
         />
       </motion.div>
 
-      {/* Scroll Down */}
       <motion.div
-        className="absolute bottom-5 sm:bottom-20 md:bottom-12 left-0 right-0 flex justify-center"
+        className="absolute bottom-5 sm:bottom-20 md:bottom-12 left-0 right-0 flex justify-center hidden md:flex"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.6 }}
@@ -144,6 +142,7 @@ export default function HomeSection() {
           {t.scrollDown} <ArrowDownCircle size={20} />
         </Link>
       </motion.div>
+
     </section>
   );
 }

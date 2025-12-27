@@ -37,14 +37,14 @@ export default function Navbar() {
       about: "Sobre mí",
       projects: "Proyectos",
       contact: "Contacto",
-      downloadCV: "CV 📄",
+      downloadCV: "CV",
     },
     en: {
       home: "Home",
       about: "About",
       projects: "Projects",
       contact: "Contact",
-      downloadCV: "CV 📄",
+      downloadCV: "CV",
     },
   };
 
@@ -87,7 +87,7 @@ export default function Navbar() {
         <motion.a
           href="/cv.pdf"
           download
-          className="px-3 py-2 xl:px-4 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg text-sm xl:text-base"
+          className="px-3 py-2 xl:px-4 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg text-sm xl:text-base text-gray-700 dark:text-gray-300"
           whileHover={{ scale: 1.05 }}
         >
           {t.downloadCV}
@@ -114,7 +114,7 @@ export default function Navbar() {
             onClick={() =>
               setTheme(resolvedTheme === "dark" ? "light" : "dark")
             }
-            className="p-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg"
+            className="p-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg text-gray-700 dark:text-gray-300"
           >
             {resolvedTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
           </motion.button>
