@@ -16,6 +16,11 @@ export default function Navbar() {
     setMounted(true);
   }, []);
 
+  // 🔒 Bloquear scroll cuando el menú móvil está abierto
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
+  }, [isOpen]);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -46,14 +51,17 @@ export default function Navbar() {
   const t = translations[language];
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 sm:px-6 md:px-8 py-3 shadow-md bg-white dark:bg-gray-900 dark:text-white transition-all">
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 sm:px-6 md:px-8 py-3 shadow-md transition-all
+      ${isOpen ? "bg-white dark:bg-gray-900" : "bg-white dark:bg-gray-900"}`}
+    >
       {/* Logo */}
       <div className="text-2xl sm:text-3xl font-bold text-teal-600 flex items-center">
         <span>María</span>
         <span className="text-gray-700 dark:text-gray-300">.</span>
       </div>
 
-      {/* Menú de escritorio */}
+      {/* Menú escritorio */}
       <div className="hidden lg:flex flex-1 justify-center space-x-6 xl:space-x-10 text-gray-800 dark:text-gray-300 font-medium">
         {[
           { id: "home", label: t.home },
@@ -74,24 +82,18 @@ export default function Navbar() {
         ))}
       </div>
 
-      {/* Botones de escritorio */}
+      {/* Botones escritorio */}
       <div className="hidden lg:flex items-center space-x-3 xl:space-x-5">
-        {/* CV */}
         <motion.a
           href="/cv.pdf"
           download
-          className="px-3 py-2 xl:px-4 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg text-sm xl:text-base flex items-center"
+          className="px-3 py-2 xl:px-4 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg text-sm xl:text-base"
           whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
         >
           {t.downloadCV}
         </motion.a>
 
-        {/* Idioma */}
-        <motion.div
-          className="flex items-center bg-gray-200 dark:bg-gray-700 rounded-lg p-1"
-          whileHover={{ scale: 1.05 }}
-        >
+        <motion.div className="flex items-center bg-gray-200 dark:bg-gray-700 rounded-lg p-1">
           {["es", "en"].map((lang) => (
             <button
               key={lang}
@@ -107,35 +109,31 @@ export default function Navbar() {
           ))}
         </motion.div>
 
-        {/* Dark Mode */}
         {mounted && (
           <motion.button
             onClick={() =>
               setTheme(resolvedTheme === "dark" ? "light" : "dark")
             }
             className="p-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg"
-            whileHover={{ scale: 1.1 }}
           >
             {resolvedTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
           </motion.button>
         )}
       </div>
 
-      {/* Menú móvil/tablet */}
+      {/* Menú móvil */}
       <div className="flex lg:hidden items-center space-x-3 ml-auto">
-        {/* Dark mode */}
         {mounted && (
           <motion.button
             onClick={() =>
               setTheme(resolvedTheme === "dark" ? "light" : "dark")
             }
-            className="p-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg"
+            className="p-2 bg-gray-200 dark:bg-gray-700 rounded-lg"
           >
             {resolvedTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
           </motion.button>
         )}
 
-        {/* Idioma */}
         <div className="flex items-center bg-gray-200 dark:bg-gray-700 rounded-lg p-1">
           {["es", "en"].map((lang) => (
             <button
@@ -152,24 +150,24 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Menú toggle */}
+        {/* 🔥 BOTÓN HAMBURGUESA CORREGIDO */}
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
-          whileHover={{ scale: 1.2 }}
+          whileHover={{ scale: 1.1 }}
+          className="p-2 bg-gray-200 dark:bg-gray-700 rounded-lg"
         >
           {isOpen ? <X size={26} /> : <Menu size={26} />}
         </motion.button>
       </div>
 
-      {/* Menú desplegable móvil */}
+      {/* Menú desplegable */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="absolute top-16 left-0 w-full h-[calc(100vh-4rem)] bg-white dark:bg-gray-900 shadow-md flex flex-col items-center justify-center space-y-8 text-lg text-gray-800 dark:text-gray-300 font-medium lg:hidden"
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
-            transition={{ type: "spring", stiffness: 200, damping: 20 }}
+            className="fixed top-16 left-0 w-full h-[calc(100vh-4rem)] bg-white dark:bg-gray-900 flex flex-col items-center justify-center space-y-8 text-lg text-gray-800 dark:text-gray-300 lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
             {[
               { id: "home", label: t.home },
@@ -177,27 +175,25 @@ export default function Navbar() {
               { id: "projects", label: t.projects },
               { id: "contact", label: t.contact },
             ].map(({ id, label }) => (
-              <motion.button
+              <button
                 key={id}
                 onClick={() => {
                   scrollToSection(id);
                   setIsOpen(false);
                 }}
-                whileTap={{ scale: 0.95 }}
-                className="hover:text-teal-600 transition"
+                className="hover:text-teal-500 transition"
               >
                 {label}
-              </motion.button>
+              </button>
             ))}
 
-            <motion.a
+            <a
               href="/cv.pdf"
               download
-              className="px-6 py-3 bg-teal-500 hover:bg-teal-600 text-white rounded-lg shadow-md text-sm"
-              whileHover={{ scale: 1.05 }}
+              className="px-6 py-3 bg-teal-500 hover:bg-teal-600 text-white rounded-lg"
             >
               {t.downloadCV}
-            </motion.a>
+            </a>
           </motion.div>
         )}
       </AnimatePresence>
