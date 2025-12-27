@@ -13,7 +13,7 @@ export default function HomeSection() {
     es: {
       name: "María Rodríguez Iranzo",
       titleIntro: "👋 Soy ",
-      roles: ["Diseñadora", "Desarrolladora"],
+      roles: ["Diseñadora", "Programadora"],
       description:
         "Desarrolladora Full Stack apasionada por el front-end y el diseño, en búsqueda activa de nuevos proyectos y oportunidades para crecer como profesional.",
       hireMe: "Contrátame",

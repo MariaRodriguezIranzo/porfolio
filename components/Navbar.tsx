@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useLanguage } from "@/components/language-provider"; // Asegúrate de que la ruta sea correcta
+import { useLanguage } from "@/components/language-provider";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,107 +20,94 @@ export default function Navbar() {
     const element = document.getElementById(id);
     if (element) {
       window.scrollTo({
-        top: element.offsetTop - 50,
+        top: element.offsetTop - 60,
         behavior: "smooth",
       });
     }
   };
 
-  // Traducciones
   const translations = {
     es: {
       home: "Inicio",
       about: "Sobre mí",
       projects: "Proyectos",
       contact: "Contacto",
-      downloadCV: "Descargar CV 📄",
+      downloadCV: "CV 📄",
     },
     en: {
       home: "Home",
       about: "About",
       projects: "Projects",
       contact: "Contact",
-      downloadCV: "Download CV 📄",
+      downloadCV: "CV 📄",
     },
   };
 
   const t = translations[language];
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 flex justify-between items-center p-4 md:px-8 shadow-md bg-white dark:bg-gray-900 dark:text-white transition-all">
+    <nav className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 sm:px-6 md:px-8 py-3 shadow-md bg-white dark:bg-gray-900 dark:text-white transition-all">
       {/* Logo */}
-      <div className="text-2xl font-bold text-teal-600 flex items-center md:flex-row">
-        <span className="text-4xl">María</span>
-        <span className="text-gray-700 dark:text-gray-300 text-4xl">.</span>
+      <div className="text-2xl sm:text-3xl font-bold text-teal-600 flex items-center">
+        <span>María</span>
+        <span className="text-gray-700 dark:text-gray-300">.</span>
       </div>
 
       {/* Menú de escritorio */}
-      <div className="hidden md:flex flex-1 justify-center space-x-8 text-gray-800 dark:text-gray-300 font-medium">
+      <div className="hidden lg:flex flex-1 justify-center space-x-6 xl:space-x-10 text-gray-800 dark:text-gray-300 font-medium">
         {[
           { id: "home", label: t.home },
           { id: "about", label: t.about },
           { id: "projects", label: t.projects },
           { id: "contact", label: t.contact },
         ].map(({ id, label }) => (
-          <motion.div
+          <motion.button
             key={id}
-            whileHover={{ scale: 1.1, color: "#1abc9c" }}
+            onClick={() => scrollToSection(id)}
+            whileHover={{ scale: 1.1, color: "#14b8a6" }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            className="text-base xl:text-lg transition"
           >
-            <button
-              onClick={() => scrollToSection(id)}
-              className="transition"
-            >
-              {label}
-            </button>
-          </motion.div>
+            {label}
+          </motion.button>
         ))}
       </div>
 
       {/* Botones de escritorio */}
-      <div className="hidden md:flex items-center space-x-4">
-        {/* Descargar CV */}
+      <div className="hidden lg:flex items-center space-x-3 xl:space-x-5">
+        {/* CV */}
         <motion.a
           href="/cv.pdf"
           download
-          className="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg text-sm flex items-center"
+          className="px-3 py-2 xl:px-4 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg text-sm xl:text-base flex items-center"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
           {t.downloadCV}
         </motion.a>
 
-        {/* Selector de idioma */}
+        {/* Idioma */}
         <motion.div
           className="flex items-center bg-gray-200 dark:bg-gray-700 rounded-lg p-1"
           whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
         >
-          <button
-            onClick={() => setLanguage("es")}
-            className={`px-2 py-1 rounded-md text-sm ${
-              language === "es"
-                ? "bg-teal-500 text-white"
-                : "text-gray-700 dark:text-gray-300"
-            }`}
-          >
-            🇪🇸
-          </button>
-          <button
-            onClick={() => setLanguage("en")}
-            className={`px-2 py-1 rounded-md text-sm ${
-              language === "en"
-                ? "bg-teal-500 text-white"
-                : "text-gray-700 dark:text-gray-300"
-            }`}
-          >
-            🇺🇸
-          </button>
+          {["es", "en"].map((lang) => (
+            <button
+              key={lang}
+              onClick={() => setLanguage(lang as "es" | "en")}
+              className={`px-2 py-1 rounded-md text-sm ${
+                language === lang
+                  ? "bg-teal-500 text-white"
+                  : "text-gray-700 dark:text-gray-300"
+              }`}
+            >
+              {lang === "es" ? "🇪🇸" : "🇺🇸"}
+            </button>
+          ))}
         </motion.div>
 
-        {/* Botón de modo oscuro */}
+        {/* Dark Mode */}
         {mounted && (
           <motion.button
             onClick={() =>
@@ -128,76 +115,49 @@ export default function Navbar() {
             }
             className="p-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg"
             whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
             {resolvedTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
           </motion.button>
         )}
       </div>
 
-      {/* Menú móvil */}
-      <div className="md:hidden flex items-center space-x-4 ml-auto">
-        {/* Descargar CV */}
-        <motion.a
-          href="/cv.pdf"
-          download
-          className="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg text-sm flex items-center"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-        >
-          {t.downloadCV}
-        </motion.a>
-
-        {/* Selector de idioma móvil */}
-        <div className="flex items-center bg-gray-200 dark:bg-gray-700 rounded-lg p-1">
-          <button
-            onClick={() => setLanguage("es")}
-            className={`px-2 py-1 rounded-md text-sm ${
-              language === "es"
-                ? "bg-teal-500 text-white"
-                : "text-gray-700 dark:text-gray-300"
-            }`}
-          >
-            🇪🇸
-          </button>
-          <button
-            onClick={() => setLanguage("en")}
-            className={`px-2 py-1 rounded-md text-sm ${
-              language === "en"
-                ? "bg-teal-500 text-white"
-                : "text-gray-700 dark:text-gray-300"
-            }`}
-          >
-            🇺🇸
-          </button>
-        </div>
-
-        {/* Botón modo oscuro */}
+      {/* Menú móvil/tablet */}
+      <div className="flex lg:hidden items-center space-x-3 ml-auto">
+        {/* Dark mode */}
         {mounted && (
           <motion.button
             onClick={() =>
               setTheme(resolvedTheme === "dark" ? "light" : "dark")
             }
             className="p-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
             {resolvedTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
           </motion.button>
         )}
 
-        {/* Botón menú móvil */}
+        {/* Idioma */}
+        <div className="flex items-center bg-gray-200 dark:bg-gray-700 rounded-lg p-1">
+          {["es", "en"].map((lang) => (
+            <button
+              key={lang}
+              onClick={() => setLanguage(lang as "es" | "en")}
+              className={`px-2 py-1 rounded-md text-sm ${
+                language === lang
+                  ? "bg-teal-500 text-white"
+                  : "text-gray-700 dark:text-gray-300"
+              }`}
+            >
+              {lang === "es" ? "🇪🇸" : "🇺🇸"}
+            </button>
+          ))}
+        </div>
+
+        {/* Menú toggle */}
         <motion.button
-          className="ml-2"
           onClick={() => setIsOpen(!isOpen)}
           whileHover={{ scale: 1.2 }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <X size={26} /> : <Menu size={26} />}
         </motion.button>
       </div>
 
@@ -205,36 +165,39 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="absolute top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-md md:hidden"
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 100 }}
-            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            className="absolute top-16 left-0 w-full h-[calc(100vh-4rem)] bg-white dark:bg-gray-900 shadow-md flex flex-col items-center justify-center space-y-8 text-lg text-gray-800 dark:text-gray-300 font-medium lg:hidden"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            transition={{ type: "spring", stiffness: 200, damping: 20 }}
           >
-            <div className="flex flex-col space-y-4 p-4 text-center text-gray-800 dark:text-gray-300 font-medium">
-              {[
-                { id: "home", label: t.home },
-                { id: "about", label: t.about },
-                { id: "projects", label: t.projects },
-                { id: "contact", label: t.contact },
-              ].map(({ id, label }) => (
-                <motion.div
-                  key={id}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <button
-                    onClick={() => {
-                      scrollToSection(id);
-                      setIsOpen(false);
-                    }}
-                    className="hover:text-teal-600"
-                  >
-                    {label}
-                  </button>
-                </motion.div>
-              ))}
-            </div>
+            {[
+              { id: "home", label: t.home },
+              { id: "about", label: t.about },
+              { id: "projects", label: t.projects },
+              { id: "contact", label: t.contact },
+            ].map(({ id, label }) => (
+              <motion.button
+                key={id}
+                onClick={() => {
+                  scrollToSection(id);
+                  setIsOpen(false);
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="hover:text-teal-600 transition"
+              >
+                {label}
+              </motion.button>
+            ))}
+
+            <motion.a
+              href="/cv.pdf"
+              download
+              className="px-6 py-3 bg-teal-500 hover:bg-teal-600 text-white rounded-lg shadow-md text-sm"
+              whileHover={{ scale: 1.05 }}
+            >
+              {t.downloadCV}
+            </motion.a>
           </motion.div>
         )}
       </AnimatePresence>
