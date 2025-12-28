@@ -14,37 +14,23 @@ export default function Navbar() {
 
   useEffect(() => setMounted(true), []);
 
-  // 🔒 Bloquear scroll cuando el menú está abierto
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen]);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
-    if (!element) return;
-
-    setIsOpen(false);
-    window.scrollTo({
-      top: element.offsetTop - 64,
-      behavior: "smooth",
-    });
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop - 60,
+        behavior: "smooth",
+      });
+    }
   };
 
   const translations = {
-    es: {
-      home: "Inicio",
-      about: "Sobre mí",
-      projects: "Proyectos",
-      contact: "Contacto",
-      downloadCV: "CV",
-    },
-    en: {
-      home: "Home",
-      about: "About",
-      projects: "Projects",
-      contact: "Contact",
-      downloadCV: "CV",
-    },
+    es: { home: "Inicio", about: "Sobre mí", projects: "Proyectos", contact: "Contacto", downloadCV: "CV" },
+    en: { home: "Home", about: "About", projects: "Projects", contact: "Contact", downloadCV: "CV" },
   };
 
   const t = translations[language];
@@ -85,9 +71,7 @@ export default function Navbar() {
               key={lang}
               onClick={() => setLanguage(lang as "es" | "en")}
               className={`px-2 py-1 rounded-md ${
-                language === lang
-                  ? "bg-teal-500 text-white"
-                  : "text-gray-700 dark:text-gray-300"
+                language === lang ? "bg-teal-500 text-white" : "text-gray-700 dark:text-gray-300"
               }`}
             >
               {lang === "es" ? "🇪🇸" : "🇺🇸"}
@@ -97,9 +81,7 @@ export default function Navbar() {
 
         {mounted && (
           <button
-            onClick={() =>
-              setTheme(resolvedTheme === "dark" ? "light" : "dark")
-            }
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
             className="p-2 bg-gray-200 dark:bg-gray-700 rounded-lg text-gray-800 dark:text-white"
           >
             {resolvedTheme === "dark" ? <Sun /> : <Moon />}
@@ -111,9 +93,7 @@ export default function Navbar() {
       <div className="lg:hidden flex items-center gap-3">
         {mounted && (
           <button
-            onClick={() =>
-              setTheme(resolvedTheme === "dark" ? "light" : "dark")
-            }
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
             className="p-2 bg-gray-200 dark:bg-gray-700 rounded-lg text-gray-800 dark:text-white"
           >
             {resolvedTheme === "dark" ? <Sun /> : <Moon />}
@@ -126,9 +106,7 @@ export default function Navbar() {
               key={lang}
               onClick={() => setLanguage(lang as "es" | "en")}
               className={`px-2 py-1 rounded-md ${
-                language === lang
-                  ? "bg-teal-500 text-white"
-                  : "text-gray-700 dark:text-gray-300"
+                language === lang ? "bg-teal-500 text-white" : "text-gray-700 dark:text-gray-300"
               }`}
             >
               {lang === "es" ? "🇪🇸" : "🇺🇸"}
@@ -136,6 +114,7 @@ export default function Navbar() {
           ))}
         </div>
 
+        {/* 🔥 ICONO HAMBURGUESA FIX DEFINITIVO */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="p-2 bg-gray-200 dark:bg-gray-700 rounded-lg text-gray-800 dark:text-white"
@@ -144,19 +123,11 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* ✅ MENÚ MÓVIL CORREGIDO (centrado real en TODOS los móviles) */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="
-              fixed inset-0 z-40
-              bg-white dark:bg-gray-900
-              flex flex-col items-center justify-center
-              gap-8
-              pt-20
-              text-gray-800 dark:text-gray-300
-              lg:hidden
-            "
+            className="fixed top-16 left-0 w-full h-[calc(100vh-4rem)] bg-white dark:bg-gray-900 flex flex-col items-center justify-center gap-8 text-gray-800 dark:text-gray-300"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -164,8 +135,11 @@ export default function Navbar() {
             {["home", "about", "projects", "contact"].map((id) => (
               <button
                 key={id}
-                onClick={() => scrollToSection(id)}
-                className="text-lg hover:text-teal-500 transition"
+                onClick={() => {
+                  scrollToSection(id);
+                  setIsOpen(false);
+                }}
+                className="text-lg hover:text-teal-500"
               >
                 {t[id as keyof typeof t]}
               </button>
